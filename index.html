@@ -230,17 +230,16 @@ function render() {
       var isInvalid = invalidWords.indexOf(found.thai) !== -1;
       var isNoMean = (found.zh === "無法翻譯");
       var bg = isNoMean ? '' : 'background:#fffbf0;';
-      if (isInvalid) {
-        bg = 'background:#e2e8f0; filter:grayscale(1); opacity:0.6;';
-      }
+      if (isInvalid) { bg = 'background:#e2e8f0; filter:grayscale(1); opacity:0.6;'; }
       var zhText = isInvalid ? '沒有這樣的寫法' : found.zh;
       var enText = isInvalid ? 'No such spelling' : found.en;
       var remarkText = isInvalid ? '' : (found.remark || '');
+      var playBtnHtml = isInvalid ? '' : '<button class="play-btn" data-file="' + found.file + '" data-thai="' + found.thai + '" style="margin-top:6px;">🔊</button>';
       rowHtml += '<td style="' + bg + '"><div class="thai">' + found.thai + '</div>' +
         '<div class="pinyin">' + found.pinyin + '</div>' +
         '<div style="font-size:13px;">' + zhText + '</div>' +
         '<div style="font-size:12px; color:#888;">' + enText + '</div>' +
-        '<button class="play-btn" data-file="' + found.file + '" data-thai="' + found.thai + '" style="margin-top:6px; ' + (isInvalid ? 'filter:grayscale(1); background:#94a3b8;' : '') + '">🔊</button>' +
+        playBtnHtml +
         '<div class="remark" style="margin-top:4px;">' + remarkText + '</div></td>';
       //2026.11.15 新增以上
     });
