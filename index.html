@@ -182,6 +182,7 @@ var meaningful = {
   "เอา": { zh: "拿、要", en: "To take / Want", remark: "" }
   //2026.11.15 新增以上
 };
+var invalidWords = ["ใป", "ใต", "ใก"];
 var words = [];
 consonants.forEach(function(cons) {
   vowels.forEach(function(vow, vIdx) {
@@ -225,14 +226,23 @@ function render() {
       if (!found) { rowHtml += '<td></td>'; return; }
       var inFiltered = filtered.indexOf(found) !== -1;
       if (!inFiltered) { rowHtml += '<td style="opacity:0.2;">-</td>'; return; }
+      //2026.11.15 新增以下
+      var isInvalid = invalidWords.indexOf(found.thai) !== -1;
       var isNoMean = (found.zh === "無法翻譯");
       var bg = isNoMean ? '' : 'background:#fffbf0;';
+      if (isInvalid) {
+        bg = 'background:#e2e8f0; filter:grayscale(1); opacity:0.6;';
+      }
+      var zhText = isInvalid ? '沒有這樣的寫法' : found.zh;
+      var enText = isInvalid ? 'No such spelling' : found.en;
+      var remarkText = isInvalid ? '' : (found.remark || '');
       rowHtml += '<td style="' + bg + '"><div class="thai">' + found.thai + '</div>' +
         '<div class="pinyin">' + found.pinyin + '</div>' +
-        '<div style="font-size:13px;">' + found.zh + '</div>' +
-        '<div style="font-size:12px; color:#888;">' + found.en + '</div>' +
-        '<button class="play-btn" data-file="' + found.file + '" data-thai="' + found.thai + '" style="margin-top:6px;">🔊</button>' +
-        '<div class="remark" style="margin-top:4px;">' + (found.remark || '') + '</div></td>';
+        '<div style="font-size:13px;">' + zhText + '</div>' +
+        '<div style="font-size:12px; color:#888;">' + enText + '</div>' +
+        '<button class="play-btn" data-file="' + found.file + '" data-thai="' + found.thai + '" style="margin-top:6px; ' + (isInvalid ? 'filter:grayscale(1); background:#94a3b8;' : '') + '">🔊</button>' +
+        '<div class="remark" style="margin-top:4px;">' + remarkText + '</div></td>';
+      //2026.11.15 新增以上
     });
     tr.innerHTML = rowHtml;
     body.appendChild(tr);
