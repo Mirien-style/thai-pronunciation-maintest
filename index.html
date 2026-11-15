@@ -43,17 +43,37 @@ thead th { min-width: 145px; }
 thead th.corner { min-width: 70px; }
 tbody td.vowel-head { min-width: 70px; }
   
+//2026.11.15-
+.note-btn { font-size:16px; padding:10px 16px; border-radius:10px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+.note-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.3); z-index:99; justify-content:center; align-items:flex-start; padding-top:80px; }
+.note-overlay.open { display:flex; }
+.note-box { background:#fffbe6; width:90%; max-width:420px; border-radius:14px; padding:18px 20px; box-shadow:0 10px 30px rgba(0,0,0,0.25); position:relative; }
+.note-close { position:absolute; top:8px; right:12px; border:none; background:none; font-size:22px; cursor:pointer; }
+.note-box h3 { margin:0 0 10px 0; }
+.note-box p { font-size:15px; line-height:1.6; color:#475569; margin:0; white-space:pre-line; }
+//2026.11.15-
 </style>
 </head>
 <body>
 <h1>泰文基礎發音 <span class="author">Product by Mirien</span></h1>
-
-<div style="text-align:center; margin: 12px 0 16px 0;">
+//2026.11.15新增以下
+<div style="text-align:center; margin: 12px 0 16px 0; display:flex; gap:10px; justify-content:center; align-items:center;">
   <select id="vowelSelect" onchange="render()" style="font-size:16px; padding:10px 14px; border-radius:10px; border:1px solid #ddd; min-width:220px;">
     <option value="all">全部 28 個母音</option>
   </select>
+  <button class="note-btn" onclick="openNote()">📝 筆記</button>
 </div>
 
+<div id="noteOverlay" class="note-overlay" onclick="if(event.target===this) closeNote()">
+  <div class="note-box">
+    <button class="note-close" onclick="closeNote()">✕</button>
+    <h3>📝 給使用者的提醒</h3>
+    <p>這裡就是你想提醒使用者的話，直接改這段文字就好。
+
+例如：這個表是練發音用的，不是每個組合都是真的單字，有「無法翻譯」的只要練發音就好。</p>
+  </div>
+</div>
+//2026.11.15新增以上
 <div class="matrix-wrap" id="tableWrap">
   <table id="mainTable">
     <thead id="tableHead"></thead>
