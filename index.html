@@ -224,6 +224,14 @@ function speak(file, thaiText) {
   audio.playbackRate = 0.8;
   audio.play().catch(function() { alert("找不到 audio/" + file + "，請確認你已經把這個 mp3 上傳到 【entity-GitHub¦canonical_name=GitHub】 的 audio 資料夾裡面"); });
 }
+//2026.11.15 新增以下
+function openNote() {
+  document.getElementById('noteOverlay').classList.add('open');
+}
+function closeNote() {
+  document.getElementById('noteOverlay').classList.remove('open');
+}
+//2026.11.15 新增以上
 function getFiltered() {
   return words;
 }
